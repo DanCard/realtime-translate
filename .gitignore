@@ -1,0 +1,13 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Call recordings and transcripts — never commit real call content
+recordings/
+
+# Downloaded test clips (large, reproducible from plans/ recipe)
+test-audio/
+
+# Runtime logs
+*.log
