@@ -6,7 +6,10 @@
 # (whisper-server on :8081) if it isn't already up, then runs the orchestrator.
 set -euo pipefail
 
-HERE="$(cd "$(dirname "$0")" && pwd)"
+# Resolve the real script location even when invoked through a symlink
+# (e.g. ~/bin/translate -> this file), so .venv/model paths still work.
+SELF="$(readlink -f "$0")"
+HERE="$(cd "$(dirname "$SELF")" && pwd)"
 WHISPER_BIN="${WHISPER_BIN:-$HOME/github/whisper.cpp/build-rocm/bin/whisper-server}"
 WHISPER_MODEL="${WHISPER_MODEL:-$HOME/github/whisper.cpp/models/ggml-large-v3.bin}"
 WHISPER_VAD_MODEL="${WHISPER_VAD_MODEL:-$HOME/github/whisper.cpp/models/ggml-silero-v5.1.2.bin}"
