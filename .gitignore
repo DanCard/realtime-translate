@@ -4,7 +4,8 @@ __pycache__/
 *.pyc
 
 # Call recordings and transcripts — never commit real call content
-recordings/
+# (session dirs are named <yymmdd-HHMMSS>, created at repo root)
+[0-9][0-9][0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9][0-9][0-9]/
 
 # Downloaded test clips (large, reproducible from plans/ recipe)
 test-audio/

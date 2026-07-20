@@ -325,12 +325,8 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--noise-init", type=float, default=120.0)
     p.add_argument("--context-lines", type=int, default=4,
                    help="Previous translations fed back for coherence.")
-    # Recording / logging — always on, one timestamped dir per session.
-    p.add_argument("--record-dir", metavar="BASE", default="recordings",
-                   help="Base directory for session recordings (default: "
-                        "recordings/). Each run creates BASE/<yymmdd-HHMMSS>/ "
-                        "containing session.wav, utt_NNNN.wav per utterance, "
-                        "and transcript.jsonl.")
+    # Recording / logging — always on, one timestamped dir per session,
+    # created directly in the current directory.
     p.add_argument("--no-record", action="store_true",
                    help="Disable recording entirely (rarely needed).")
     p.add_argument("--show-source", action="store_true",
@@ -361,7 +357,7 @@ def main() -> int:
     session_dir = None
     if not args.no_record:
         import os
-        session_dir = os.path.join(args.record_dir, time.strftime("%y%m%d-%H%M%S"))
+        session_dir = time.strftime("%y%m%d-%H%M%S")
         os.makedirs(session_dir, exist_ok=True)
         args.save_audio = session_dir
         args.transcript = os.path.join(session_dir, "transcript.jsonl")

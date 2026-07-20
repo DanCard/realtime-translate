@@ -307,14 +307,19 @@ Two-layer defense, both in place:
 
 ## Recording — always on (2026-07-19)
 
-Every run now auto-records into `recordings/<yymmdd-HHMMSS>/` (no flag needed —
-user wants this on by default, always): `session.wav` (full continuous
-capture), `utt_NNNN.wav` per detected utterance (saved *before* the
-meaningful-text filter, so dropped utterances stay inspectable), and
-`transcript.jsonl` (timestamp, detected language, source text, English
-translation, kept/dropped flag). `--no-record` disables; `--show-source` also
-prints source-language text to the terminal. `run.sh` needed no change — it
-already forwards args transparently.
+Every run auto-records into `<yymmdd-HHMMSS>/`, created directly in the
+directory the script is run from (no `recordings/` wrapper dir, no
+`--record-dir` flag — user will never use a custom base dir, so it was
+removed entirely): `session.wav` (full continuous capture), `utt_NNNN.wav`
+per detected utterance (saved *before* the meaningful-text filter, so dropped
+utterances stay inspectable), and `transcript.jsonl` (timestamp, detected
+language, source text, English translation, kept/dropped flag). `--no-record`
+disables; `--show-source` also prints source-language text to the terminal.
+`run.sh` needed no change — it already forwards args transparently.
+
+`.gitignore` matches these session dirs by the `yymmdd-HHMMSS/` name pattern
+at repo root (glob: `[0-9]{6}-[0-9]{6}/`) so real call recordings never get
+committed.
 
 ## Filter bug fixed (2026-07-19)
 
